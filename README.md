@@ -212,5 +212,5 @@
 ## Автори
 
 - Github: [@aleksandrostosunidis](https://github.com/aleksandrostosunidis)
-- Instagram: [@danielO](https://www.instagram.com/danex_681/)
+- Github: [@Lama-sama](https://github.com/Lama-sama)
 
