@@ -4,7 +4,7 @@
 #include <string>
 using namespace std;
 
-// ========================== Class: Goods ==========================
+// ========================== Клас: Стоки ==========================
 class Goods {
 private:
     string productName;
@@ -34,7 +34,7 @@ public:
     int getQuantity() const { return quantity; }
 };
 
-// ========================== Class: Person ==========================
+// ========================== Клас: Person ==========================
 class Person {
 protected:
     string name;
@@ -55,7 +55,7 @@ public:
     string getName() const { return name; }
 };
 
-// ========================== Class: Customer (inherits Person) ==========================
+// ========================== Клас: Клиент (Наследява Person) ==========================
 class Customer : public Person {
 private:
     string companyName;
@@ -87,7 +87,7 @@ public:
     double getTotalPayment() const { return totalPayment; }
 };
 
-// ========================== Class: SalesRepresentative ==========================
+// ========================== Клас: Представител ==========================
 class SalesRepresentative {
 private:
     vector<Customer*> customers;
@@ -112,7 +112,7 @@ public:
     }
 };
 
-// ========================== Class: Warehouse ==========================
+// ========================== Клас: Склад ==========================
 class Warehouse {
 private:
     string name;
@@ -162,7 +162,7 @@ public:
     }
 };
 
-// ========================== Main Function ==========================
+// ========================== Главна Програма ==========================
 int main() {
     Warehouse warehouse("Main Warehouse");
 
