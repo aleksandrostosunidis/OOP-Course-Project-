@@ -28,7 +28,7 @@ public:
             << ", Quantity: " << quantity
             << ", Amount: " << amount << endl;
     }
-
+    // Setter-и за връщане на стойности
     string getName() const { return productName; }
     double getAmount() const { return amount; }
     int getQuantity() const { return quantity; }
@@ -51,7 +51,7 @@ public:
             << ", Phone: " << phoneNumber
             << ", Email: " << email << endl;
     }
-
+    // Setter за връщане на стойност
     string getName() const { return name; }
 };
 
@@ -60,7 +60,7 @@ class Customer : public Person {
 private:
     string companyName;
     string deliveryAddress;
-    vector<Goods> goodsList;
+    vector<Goods> goodsList; // Динамичен списък от стоки, в който се съхраняват всички стоки, заявени от клиента
     double totalPayment;
 
 public:
@@ -68,45 +68,45 @@ public:
         : Person(n, s, phone, mail), companyName(company), deliveryAddress(address), totalPayment(0) {}
 
     void addGoods(const Goods& goods) {
-        goodsList.push_back(goods);
-        totalPayment += goods.getAmount();
+        goodsList.push_back(goods); // Добавя стока към вектора goodsList
+        totalPayment += goods.getAmount(); // Изчислява общата сума за плащане, като добавя сумата на новата стока към totalPayment
     }
 
     void printInfo() const {
-        Person::printInfo();
+        Person::printInfo(); // Извикване на метода printInfo който е към Person
         cout << "Company: " << companyName
             << ", Delivery Address: " << deliveryAddress
             << ", Total Payment: " << totalPayment << endl;
 
         cout << "Goods requested: " << endl;
-        for (const auto& goods : goodsList) {
-            goods.printInfo();
+        for (const auto& goods : goodsList) { // обхожда всяка стока в списъка goodsList
+            goods.printInfo(); // За всяка стока се извиква goods.printInfo(), който принтира информацията за конкретния продукт (име, цена, количество и стойност)
         }
     }
-
+    // Връща общата сума, която клиентът трябва да заплати.
     double getTotalPayment() const { return totalPayment; }
 };
 
 // ========================== Клас: Представител ==========================
 class SalesRepresentative {
 private:
-    vector<Customer*> customers;
+    vector<Customer*> customers; // Динамичен списък от клиенти
 
 public:
     void addCustomer(Customer* customer) {
-        customers.push_back(customer);
+        customers.push_back(customer); // Добавяне на клиенти към списъка
     }
 
     void printCustomersInfo() const {
         for (const auto& customer : customers) {
-            customer->printInfo();
+            customer->printInfo(); // Извеждане на информация за клиентите, чрез указателите
         }
     }
 
-    double calculateDailyTurnover() const {
+    double calculateDailyTurnover() const { // Изчислява дневния оборот на представителя
         double turnover = 0;
-        for (const auto& customer : customers) {
-            turnover += customer->getTotalPayment();
+        for (const auto& customer : customers) { // Обхожда списъка customers
+            turnover += customer->getTotalPayment(); // Сумата на всички плащания (getTotalPayment()) се добавя към turnover.
         }
         return turnover;
     }
@@ -116,31 +116,31 @@ public:
 class Warehouse {
 private:
     string name;
-    vector<SalesRepresentative> representatives;
-    vector<Customer> customers;
-    unordered_map<string, Goods> goods;
+    vector<SalesRepresentative> representatives; // Динамичен списък от представители
+    vector<Customer> customers; // Списък от всички клиенти
+    unordered_map<string, Goods> goods; // Хеш таблица с ключ име и стойност ( обект ) от Goods
 
 public:
     Warehouse(string n) : name(n) {}
 
     void addCustomer(const Customer& customer) {
-        customers.push_back(customer);
+        customers.push_back(customer); // Добавя нов клиент в списъка customers
     }
 
     void addGoods(const Goods& good) {
-        goods[good.getName()] = good;
+        goods[good.getName()] = good; // Добавя или актуализира стока в хеш-таблицата goods
     }
 
-    Goods* searchGoods(const string& productName) {
-        if (goods.find(productName) != goods.end()) {
-            return &goods[productName];
+    Goods* searchGoods(const string& productName) { // Търси стока по име.
+        if (goods.find(productName) != goods.end()) { // Проверява дали productName съществува в goods
+            return &goods[productName]; // Ако съществува, връща указател към стоката. В противен случай връща nullptr
         }
         return nullptr;
     }
 
-    Customer* findCustomerByName(const string& customerName) {
-        for (auto& customer : customers) {
-            if (customer.getName() == customerName) {
+    Customer* findCustomerByName(const string& customerName) { // Намира клиент по име.
+        for (auto& customer : customers) { // Обхожда списъка customers.
+            if (customer.getName() == customerName) { // Ако името на клиента съвпада с customerName, връща указател към клиента.
                 return &customer;
             }
         }
@@ -153,9 +153,9 @@ public:
         }
     }
 
-    double calculateTurnover() const {
+    double calculateTurnover() const { // Изчислява общия оборот на склада.
         double totalTurnover = 0;
-        for (const auto& customer : customers) {
+        for (const auto& customer : customers) { // Обхожда всички клиенти и събира техните плащания.
             totalTurnover += customer.getTotalPayment();
         }
         return totalTurnover;
